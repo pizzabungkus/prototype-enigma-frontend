@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { DanantaraLogo } from "../components/Logo";
 
 export default function ReimbursementFormPage() {
   const { auth } = useAuth();
@@ -29,13 +30,10 @@ export default function ReimbursementFormPage() {
       <NavBar />
       <main className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex items-start justify-between">
-          <h1 className="text-2xl font-semibold text-[#1A1A1A]">BNI Digital Reimbursement System</h1>
+          <h1 className="text-2xl font-semibold text-[#1A1A1A]">BNI TERRA – Digital Reimbursement System</h1>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <div className="h-6 w-6 rounded bg-bni-orange" />
-              <span className="font-semibold">BNI</span>
-            </div>
-            <div className="text-sm text-[#1A1A1A]">Danantara Indonesia</div>
+            <span className="text-sm text-neutral-500 font-medium">Powered by</span>
+            <DanantaraLogo height={28} />
           </div>
         </div>
 

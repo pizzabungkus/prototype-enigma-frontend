@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { parseRole } from "../lib/roles";
 import { useRouter } from "next/navigation";
+import { TerraLogo, DanantaraLogo } from "../components/Logo";
 
 export default function LoginPage() {
   const { setAuth } = useAuth();
@@ -13,22 +14,19 @@ export default function LoginPage() {
     const username = String(fd.get("username") || "").trim() || "User";
     const role = parseRole(String(fd.get("role") || "Requester"));
     setAuth({ username, role });
-    router.replace("/request");
+    router.replace("/dashboard");
   };
   return (
     <div className="min-h-screen bg-background text-bni-blue">
       <header className="flex items-center justify-between px-8 py-6 border-b border-neutral-200">
-        <div className="flex items-center gap-2">
-          <span className="sr-only">BNI</span>
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-md bg-bni-orange" />
-            <span className="text-xl font-semibold">BNI</span>
-            <span>Digital Reimburmsement</span>
-          </div>
+        <div className="flex items-center gap-4">
+          <TerraLogo size="large" />
+          <div className="hidden md:block w-px h-10 bg-neutral-300" />
+          <span className="hidden md:block text-lg font-medium text-neutral-700">Digital Reimbursement System</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">Danantara Indonesia</span>
-          <div className="h-6 w-6 rounded-md bg-neutral-300" />
+        <div className="flex items-center gap-4">
+          <span className="text-sm font-medium text-neutral-500 hidden sm:block">Powered by</span>
+          <DanantaraLogo height={42} />
         </div>
       </header>
 

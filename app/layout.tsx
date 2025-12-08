@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BNI Digital Reimbursement System",
+  title: "BNI TERRA – Digital Reimbursement System",
   description: "Corporate, modern UI prototype",
 };
 
