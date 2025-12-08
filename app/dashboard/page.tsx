@@ -116,9 +116,9 @@ export default function DashboardPage() {
           <span className="text-xs text-neutral-400">
             © 2025 BNI TERRA Digital Reimbursement System
           </span>
-          <div className="flex items-center gap-3 opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
+          <div className="flex items-center gap-3 opacity-80  transition-all duration-500">
             <span className="text-xs font-medium text-neutral-500">Powered by</span>
-            <DanantaraLogo height={20} />
+            <DanantaraLogo height={34} />
           </div>
         </div>
       </footer>

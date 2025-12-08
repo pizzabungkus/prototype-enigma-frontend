@@ -33,7 +33,7 @@ export default function ReimbursementFormPage() {
           <h1 className="text-2xl font-semibold text-[#1A1A1A]">BNI TERRA – Digital Reimbursement System</h1>
           <div className="flex items-center gap-3">
             <span className="text-sm text-neutral-500 font-medium">Powered by</span>
-            <DanantaraLogo height={28} />
+            <DanantaraLogo height={42} />
           </div>
         </div>
 
