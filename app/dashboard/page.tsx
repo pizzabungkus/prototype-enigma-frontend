@@ -114,7 +114,7 @@ export default function DashboardPage() {
       <footer className="fixed bottom-0 left-0 w-full bg-white border-t border-neutral-200 py-6">
         <div className="mx-auto max-w-6xl px-6 flex items-center justify-between">
           <span className="text-xs text-neutral-400">
-            © 2025 BNI TERRA Digital Reimbursement System
+            © 2025 BNI TERRA Travel Reimbursement System
           </span>
           <div className="flex items-center gap-3 opacity-80  transition-all duration-500">
             <span className="text-xs font-medium text-neutral-500">Powered by</span>

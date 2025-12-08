@@ -15,7 +15,7 @@ export default function RequestTabPage() {
     <div className="min-h-screen bg-background">
       <NavBar />
       <main className="mx-auto max-w-6xl px-6 py-10">
-        <h1 className="text-2xl font-semibold text-bni-blue">BNI TERRA – Digital Reimbursement System</h1>
+        <h1 className="text-2xl font-semibold text-bni-blue">BNI TERRA – Travel Reimbursement System</h1>
         <p className="mt-2 text-neutral-700">Choose a provider to start a reimbursement request.</p>
 
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">

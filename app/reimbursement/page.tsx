@@ -30,7 +30,7 @@ export default function ReimbursementFormPage() {
       <NavBar />
       <main className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex items-start justify-between">
-          <h1 className="text-2xl font-semibold text-[#1A1A1A]">BNI TERRA – Digital Reimbursement System</h1>
+          <h1 className="text-2xl font-semibold text-[#1A1A1A]">BNI TERRA – Travel Reimbursement System</h1>
           <div className="flex items-center gap-3">
             <span className="text-sm text-neutral-500 font-medium">Powered by</span>
             <DanantaraLogo height={42} />

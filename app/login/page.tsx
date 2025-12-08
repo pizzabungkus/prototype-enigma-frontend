@@ -22,7 +22,7 @@ export default function LoginPage() {
         <div className="flex items-center gap-4">
           <TerraLogo size="large" />
           <div className="hidden md:block w-px h-10 bg-neutral-300" />
-          <span className="hidden md:block text-lg font-medium text-neutral-700">Digital Reimbursement System</span>
+          <span className="hidden md:block text-lg font-medium text-neutral-700">Travel Reimbursement System</span>
         </div>
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium text-neutral-500 hidden sm:block">Powered by</span>

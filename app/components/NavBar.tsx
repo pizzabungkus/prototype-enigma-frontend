@@ -24,7 +24,7 @@ export default function NavBar() {
         <div className="flex items-center gap-4">
           <TerraLogo />
           <div className="hidden lg:block w-px h-8 bg-neutral-300" />
-          <span className="hidden lg:block text-sm font-medium text-neutral-700">Digital Reimbursement System</span>
+          <span className="hidden lg:block text-sm font-medium text-neutral-700">Travel Reimbursement System</span>
         </div>
         
         <ul className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-8 text-sm font-medium text-bni-blue">
