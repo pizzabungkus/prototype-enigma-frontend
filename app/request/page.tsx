@@ -7,10 +7,18 @@ import { useRouter } from "next/navigation";
 export default function RequestTabPage() {
   const { auth } = useAuth();
   const router = useRouter();
-  if (auth && auth.role !== "REQUESTER") {
+  
+  if (auth && (auth.role === "APPROVAL" || auth.role === "AUDITOR")) {
     router.replace("/approval");
     return null;
   }
+  
+  // Also safety check if unknown role, though login handles it
+  if (auth && auth.role !== "REQUESTER") {
+     router.replace("/approval"); // Fallback
+     return null;
+  }
+  
   return (
     <div className="min-h-screen bg-background">
       <NavBar />

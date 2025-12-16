@@ -2,12 +2,21 @@
 import NavBar from "../components/NavBar";
 import { useAuth } from "../context/AuthContext";
 import { useData } from "../context/DataContext";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function ApprovalPage() {
   const { auth } = useAuth();
+  const router = useRouter();
   const { reimbursements, updateReimbursement } = useData();
-  const role = auth?.role || "APPROVAL";
+  
+  // Protect route
+  if (auth && auth.role === "REQUESTER") {
+     router.replace("/history"); // or /request
+     return null;
+  }
+  
+  const role = auth?.role; // No fallback to "APPROVAL"
 
   const incomingRequests = reimbursements.filter(
     (r) => r.status === "WAITING_APPROVAL"
@@ -108,8 +117,8 @@ export default function ApprovalPage() {
                 </div>
               </div>
 
-              {/* Action Buttons - HIDDEN FOR AUDITOR */}
-              {role !== "AUDITOR" && (
+              {/* Action Buttons - STRICTLY APPROVAL ROLE ONLY */}
+              {role === "APPROVAL" && (
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-3">
                     <button 

@@ -63,7 +63,15 @@ export function DataProvider({ children }: { children: ReactNode }) {
             // Load Users
             const usersRes = await fetch('/data/users.csv');
             const usersText = await usersRes.text();
-            setUsers(parseCSV<User>(usersText));
+            const parsedUsers = parseCSV<User>(usersText);
+            
+            // Normalize Roles immediately
+            const normalizedUsers = parsedUsers.map(u => ({
+                ...u,
+                role: (u.role || "").trim().toUpperCase() as "REQUESTER" | "APPROVAL" | "AUDITOR"
+            }));
+            
+            setUsers(normalizedUsers);
 
             // Load Reimbursements
             if (stored) {

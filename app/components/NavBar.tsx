@@ -2,9 +2,16 @@
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { TerraLogo, DanantaraLogo } from "./Logo";
+import { useState, useEffect } from "react";
 
 export default function NavBar() {
   const { auth, logout } = useAuth();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const role = auth?.role;
 
   const tabs = [
@@ -12,10 +19,17 @@ export default function NavBar() {
     { key: "history", label: "History", href: "/history" },
     { key: "approval", label: "Approval", href: "/approval" },
   ].filter((t) => {
-    if (role === "REQUESTER") return t.key === "request" || t.key === "history";
-    if (role === "APPROVAL") return t.key === "approval" || t.key === "history";
-    if (role === "AUDITOR") return t.key === "approval" || t.key === "history";
-    return t.key === "history";
+    // STRICT UI ENFORCEMENT
+    if (role === "REQUESTER") {
+        return t.key === "request" || t.key === "history";
+    }
+    if (role === "APPROVAL") {
+        return t.key === "approval" || t.key === "history";
+    }
+    if (role === "AUDITOR") {
+        return t.key === "approval" || t.key === "history";
+    }
+    return false; // No role = no tabs
   });
 
   return (
@@ -27,8 +41,9 @@ export default function NavBar() {
           <span className="hidden lg:block text-sm font-medium text-neutral-700">Travel Reimbursement System</span>
         </div>
         
+        {/* Render tabs only after mounted to avoid hydration mismatch */}
         <ul className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-8 text-sm font-medium text-bni-blue">
-          {tabs.map((t) => (
+          {mounted && tabs.map((t) => (
             <li key={t.key}><Link href={t.href} className="hover:text-bni-orange transition-colors">{t.label}</Link></li>
           ))}
         </ul>
@@ -36,7 +51,9 @@ export default function NavBar() {
         <div className="flex items-center gap-6">
           <DanantaraLogo height={42} className="hidden sm:block opacity-80 transition-all" />
           <div className="flex items-center gap-3 pl-6 border-l border-neutral-200">
-            <span className="text-sm text-neutral-700 font-medium">{auth?.username || "Guest"}</span>
+            <span className="text-sm text-neutral-700 font-medium">
+              {mounted ? (auth?.username || "Guest") : "Guest"}
+            </span>
             <button aria-label="Logout" onClick={logout} className="h-9 w-9 rounded-full border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 text-neutral-500 hover:text-red-600 transition-colors">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M10 17l-5-5 5-5" />

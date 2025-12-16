@@ -1,19 +1,29 @@
-
 export function parseCSV<T>(csv: string): T[] {
-  const lines = csv.trim().split('\n');
-  const headers = lines[0].trim().split(',');
+  // Handle CRLF or LF
+  const lines = csv.trim().split(/\r?\n/);
+  if (lines.length === 0) return [];
+
+  // Parse headers and trim them
+  const headers = lines[0].split(',').map(h => h.trim());
   
   return lines.slice(1).map(line => {
-    const values = line.trim().split(',');
+    // Skip empty lines
+    if (!line.trim()) return null;
+    
+    const values = line.split(',');
     const obj: any = {};
+    
     headers.forEach((header, index) => {
-      let value = values[index];
-      // Basic type inference
-      if (value && !isNaN(Number(value)) && !value.includes('-') && !value.startsWith('0')) { // Avoid dates or booking codes being numbers
-         // actually let's keep strings for safety unless we know
-      }
-      obj[header.trim()] = value ? value.trim() : "";
+      // Get value by index, default to empty string
+      let value = values[index] || "";
+      
+      // Trim the value
+      value = value.trim();
+      
+      // Assign to object using the header key
+      obj[header] = value;
     });
+    
     return obj as T;
-  });
+  }).filter(Boolean) as T[];
 }

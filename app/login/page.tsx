@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { useData } from "../context/DataContext";
-import { parseRole } from "../lib/roles";
+import { parseRole, isValidRole } from "../lib/roles";
 import { useRouter } from "next/navigation";
 import { TerraLogo, DanantaraLogo } from "../components/Logo";
 import { useState } from "react";
@@ -23,12 +23,26 @@ export default function LoginPage() {
     const user = users.find(u => u.username === username && u.password === password);
 
     if (user) {
-      setAuth({ username: user.username, role: parseRole(user.role) });
-      router.replace("/dashboard");
+      // Strict role validation
+      const roleStr = user.role.trim();
+      
+      console.log("LOGIN USER:", user.username, roleStr);
+
+      if (!isValidRole(roleStr)) {
+        setError(`Invalid role configured for user: ${roleStr}. Must be REQUESTER, APPROVAL, or AUDITOR.`);
+        return;
+      }
+
+      setAuth({ username: user.username, role: roleStr });
+      
+      // Redirect based on role
+      if (roleStr === "REQUESTER") {
+        router.replace("/request");
+      } else {
+        router.replace("/approval");
+      }
     } else {
-      // Fallback for prototype testing if not in CSV (optional, but requested to use CSV as truth)
-      // "Use this parsed data as the single source of truth" -> So strictly fail if not found.
-      setError("Invalid credentials. Try Alice/Bob/Charlie with '123456'");
+      setError("Invalid credentials. Please check your username and password.");
     }
   };
   return (
