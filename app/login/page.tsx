@@ -1,20 +1,35 @@
 "use client";
 import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
+import { useData } from "../context/DataContext";
 import { parseRole } from "../lib/roles";
 import { useRouter } from "next/navigation";
 import { TerraLogo, DanantaraLogo } from "../components/Logo";
+import { useState } from "react";
 
 export default function LoginPage() {
   const { setAuth } = useAuth();
+  const { users } = useData();
   const router = useRouter();
+  const [error, setError] = useState("");
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
     const fd = new FormData(e.currentTarget);
-    const username = String(fd.get("username") || "").trim() || "User";
-    const role = parseRole(String(fd.get("role") || "Requester"));
-    setAuth({ username, role });
-    router.replace("/dashboard");
+    const username = String(fd.get("username") || "").trim();
+    const password = String(fd.get("password") || "").trim();
+
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if (user) {
+      setAuth({ username: user.username, role: parseRole(user.role) });
+      router.replace("/dashboard");
+    } else {
+      // Fallback for prototype testing if not in CSV (optional, but requested to use CSV as truth)
+      // "Use this parsed data as the single source of truth" -> So strictly fail if not found.
+      setError("Invalid credentials. Try Alice/Bob/Charlie with '123456'");
+    }
   };
   return (
     <div className="min-h-screen bg-background text-bni-blue">
@@ -22,24 +37,25 @@ export default function LoginPage() {
         <div className="flex items-center gap-4">
           <TerraLogo size="large" />
           <div className="hidden md:block w-px h-10 bg-neutral-300" />
-          <span className="hidden md:block text-lg font-medium text-neutral-700">Travel Reimbursement System</span>
+          <span className="hidden md:block text-lg font-medium text-neutral-700">Digital Reimbursement System</span>
         </div>
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium text-neutral-500 hidden sm:block">Powered by</span>
-          <DanantaraLogo height={42} />
+          <DanantaraLogo height={32} />
         </div>
       </header>
 
       <main className="flex items-center justify-center px-4 py-16">
         <div className="w-full max-w-md rounded-lg bg-surface shadow-[var(--shadow-card)] border border-border p-8">
           <h1 className="text-2xl font-semibold tracking-tight mb-6">Sign In</h1>
+          {error && <div className="mb-4 text-sm text-red-600 bg-red-50 p-3 rounded">{error}</div>}
           <form className="space-y-5" onSubmit={onSubmit}>
             <div>
               <label className="block text-sm mb-2">Username</label>
               <input
                 type="text"
                 className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-bni-blue focus:outline-none focus:ring-2 focus:ring-bni-orange"
-                placeholder="Enter username"
+                placeholder="e.g. Alice, Bob, Charlie"
                 name="username"
               />
             </div>
@@ -47,17 +63,14 @@ export default function LoginPage() {
               <label className="block text-sm mb-2">Password</label>
               <input
                 type="password"
+                name="password"
                 className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-bni-blue focus:outline-none focus:ring-2 focus:ring-bni-orange"
                 placeholder="Enter password"
               />
             </div>
-            <div>
-              <label className="block text-sm mb-2">Role</label>
-              <select name="role" className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-bni-orange">
-                <option>Requester</option>
-                <option>Approval</option>
-                <option>Auditor</option>
-              </select>
+            {/* Role is now determined by the user data */}
+            <div className="text-xs text-neutral-500">
+              Try: Alice (REQUESTER), Bob (APPROVAL), Charlie (AUDITOR) - Pass: 123456
             </div>
             <button
               type="submit"

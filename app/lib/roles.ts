@@ -1,17 +1,16 @@
-export type Role = "Requester" | "Approval" | "Auditor";
+export type Role = "REQUESTER" | "APPROVAL" | "AUDITOR";
 
 const synonyms: Record<string, Role> = {
-  requester: "Requester",
-  requestor: "Requester",
-  approval: "Approval",
-  approver: "Approval",
-  approve: "Approval",
-  auditor: "Auditor",
-  audit: "Auditor",
+  requester: "REQUESTER",
+  requestor: "REQUESTER",
+  approval: "APPROVAL",
+  approver: "APPROVAL",
+  approve: "APPROVAL",
+  auditor: "AUDITOR",
+  audit: "AUDITOR",
 };
 
 export function parseRole(input: string | null | undefined): Role {
-  const key = String(input || "Requester").trim().toLowerCase();
-  return synonyms[key] || (key === "requester" ? "Requester" : key === "auditor" ? "Auditor" : "Approval");
+  const key = String(input || "REQUESTER").trim().toLowerCase();
+  return synonyms[key] || (key === "requester" ? "REQUESTER" : key === "auditor" ? "AUDITOR" : "APPROVAL");
 }
-

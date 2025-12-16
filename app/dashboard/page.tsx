@@ -34,7 +34,7 @@ export default function DashboardPage() {
         </svg>
       ),
       color: "bg-bni-orange",
-      visible: role === "Requester"
+      visible: role === "REQUESTER"
     },
     {
       key: "history",
@@ -62,7 +62,7 @@ export default function DashboardPage() {
         </svg>
       ),
       color: "bg-bni-teal",
-      visible: role === "Approval" || role === "Auditor"
+      visible: role === "APPROVAL" || role === "AUDITOR"
     }
   ];
 

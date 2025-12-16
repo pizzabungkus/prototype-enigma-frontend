@@ -12,9 +12,9 @@ export default function NavBar() {
     { key: "history", label: "History", href: "/history" },
     { key: "approval", label: "Approval", href: "/approval" },
   ].filter((t) => {
-    if (role === "Requester") return t.key === "request" || t.key === "history";
-    if (role === "Approval") return t.key === "approval" || t.key === "history";
-    if (role === "Auditor") return t.key === "approval" || t.key === "history";
+    if (role === "REQUESTER") return t.key === "request" || t.key === "history";
+    if (role === "APPROVAL") return t.key === "approval" || t.key === "history";
+    if (role === "AUDITOR") return t.key === "approval" || t.key === "history";
     return t.key === "history";
   });
 

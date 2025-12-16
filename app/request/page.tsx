@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function RequestTabPage() {
   const { auth } = useAuth();
   const router = useRouter();
-  if (auth && auth.role !== "Requester") {
+  if (auth && auth.role !== "REQUESTER") {
     router.replace("/approval");
     return null;
   }

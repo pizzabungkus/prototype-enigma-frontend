@@ -1,0 +1,7 @@
+
+id,booking_code,provider,description,amount,status,requester_username,created_at,return_reason
+1,RB-3269889-84786504,Grab,Kunjungan Digital Innovation,121000,WAITING_APPROVAL,Alice,2025-12-04,
+2,BB-9922711-4477,Blue Bird,Audit cabang,98000,APPROVED,Alice,2025-12-03,
+3,RB-111,Grab,Client visit,54000,RETURNED,Alice,2025-12-02,Receipt missing
+4,BB-444,Blue Bird,Training,76000,WAITING_APPROVAL,Alice,2025-12-01,
+5,RB-555,Grab,Workshop,150000,WAITING_APPROVAL,Alice,2025-12-05,
